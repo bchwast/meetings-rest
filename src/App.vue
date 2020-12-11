@@ -33,6 +33,11 @@
           return participant.id !== participantToRemove.id;
         });
       }
+    },
+    mounted() {
+      this.$http.get('participants').then(response => {
+        this.participants = response.body;
+      });
     }
   };
 </script>

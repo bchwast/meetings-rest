@@ -1,1 +1,14 @@
-{}
+{
+    "name": "bchwa/meetings-rest",
+    "authors": [
+        {
+            "name": "bchwast",
+            "email": "bchwast01@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3",
+        "ext-json": "*",
+        "ext-sqlite3": "*"
+    }
+}
