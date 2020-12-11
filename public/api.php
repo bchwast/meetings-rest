@@ -67,6 +67,20 @@
 
     );
 
+    $app->get(
+        '/api/participants/{id}',
+        function (Request $request, Response $response, array $args) use ($db) {
+            $sql = "SELECT * FROM participant WHERE id = $args[id]"; // beware! SQL Injection Attack
+            $ret = $db->query($sql);
+            $participant = $ret->fetchArray(SQLITE3_ASSOC);
+            if ($participant) {
+                return $response->withJson($participant);
+            } else {
+                return $response->withStatus(404)->withJson(['error' => 'Such participant does not exist.']);
+            }
+        }
+    );
+
     /*$app->get(
         '/api/participants',
         function (Request $request, Response $response, array $args) {
@@ -78,15 +92,6 @@
             return $response->withJson($participants);
         }
     );*/
-
-    $app->get(
-        '/api/participants/{id}',
-        function (Request $request, Response $response, array $args) {
-            $id = $args['id'];
-            $response->getBody()->write("$participants[$id]");
-            return $response;
-        }
-    );
 
     $app->run();
 ?>
