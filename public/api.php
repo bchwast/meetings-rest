@@ -70,7 +70,7 @@
         '/api/participants/{id}',
         function (Request $request, Response $response, array $args) use ($db) {
             $requestData = $request->getParsedBody();
-            if (!isset($args[id])) {
+            if (!isset($args['id'])) {
                 return $response->withStatus(418)->withJson(['message' => 'id is required']);
             }
             else {
