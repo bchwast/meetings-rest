@@ -51,6 +51,22 @@
         }
     );
 
+    $app->post(
+        '/api/participants',
+        function (Request $request, Response $response, array $args) use ($db) {
+            $requestData = $request->getParsedBody();
+            if (!isset($requestData[firstname]) || !isset($requestData[lastname])) {
+                return $response->withStatus(418)->withJson(['message' => 'Lastname and firstname are required']);
+            }
+            else {
+                $sql = "INSERT INTO participant (firstname, lastname) VALUES ('$requestData[firstname]', '$requestData[lastname]')";
+                $db->query($sql);
+                return $response->withStatus(201);
+            }
+        }
+
+    );
+
     /*$app->get(
         '/api/participants',
         function (Request $request, Response $response, array $args) {

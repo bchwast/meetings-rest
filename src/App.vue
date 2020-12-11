@@ -26,7 +26,10 @@
     },
     methods: {
       addParticipant: function(newParticipant){
-        this.participants.push(newParticipant);
+        this.$http.post('participants', newParticipant).then(response => {
+          this.participants.push(newParticipant);
+        });
+
       },
       onRemove: function (participantToRemove){
         this.participants = this.participants.filter((participant) => {
