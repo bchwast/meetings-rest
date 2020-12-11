@@ -74,9 +74,11 @@
                 return $response->withStatus(418)->withJson(['message' => 'id is required']);
             }
             else {
-                $sql = "DELETE FROM participant WHERE id=$args[id]";
-                $db->query($sql);
-                return $response->withStatus(201);
+                $sql = "DELETE FROM participant WHERE id=:id";
+                $stmt = $db->prepare($sql);
+                $stmt->bindValue('id', $args['id']);
+                $ret = $stmt->execute();
+                return $response->withStatus(204);
             }
         }
     );
