@@ -32,12 +32,11 @@
 
       },
       onRemove: function (participantToRemove){
-        this.$http.post('participants', newParticipant).then(response => {
-          this.participants.push(newParticipant);
-        });
-        this.participants = this.participants.filter((participant) => {
-          return participant.id !== participantToRemove.id;
-        });
+        this.$http.delete('participants/' + participantToRemove.id ).then(response => {
+          this.participants = this.participants.filter((participant) => {
+            return participant.id !== participantToRemove.id
+          });
+        })
       }
     },
     mounted() {

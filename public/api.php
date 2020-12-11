@@ -64,7 +64,21 @@
                 return $response->withStatus(201);
             }
         }
+    );
 
+    $app->delete(
+        '/api/participants/{id}',
+        function (Request $request, Response $response, array $args) use ($db) {
+            $requestData = $request->getParsedBody();
+            if (!isset($args[id])) {
+                return $response->withStatus(418)->withJson(['message' => 'id is required']);
+            }
+            else {
+                $sql = "DELETE FROM participant WHERE id=$args[id]";
+                $db->query($sql);
+                return $response->withStatus(201);
+            }
+        }
     );
 
     $app->get(
